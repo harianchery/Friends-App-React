@@ -1,8 +1,22 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 
 const View = () => {
 
+    const[friends,changeFriends]=useState([])
+    const fetchData=()=>{
+        axios.get("https://friendsapi-re5a.onrender.com/view").then(
+            (response)=>changeFriends(response.data)
+        ).catch().finally()
+    }
+    useEffect(()=>{
+        (fetchData())
+    },[])  
+           
+        
+    
     return (
+       
         <div>
             <div className="container">
                 <div className="row">
@@ -17,12 +31,18 @@ const View = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
+                                {
+                                    friends.map(
+                                        (value,index)=>{
+                                            return <tr>
+                                            <th scope="row">{value.name}</th>
+                                            <td>{value.friendName}</td>
+                                            <td>O{value.friendNickName}</td>
+                                            <td>{value.DescribeYourFriend}</td>
+                                        </tr>
+                                        }
+                                    )
+                                }
                             </tbody>
                         </table>
                     </div>

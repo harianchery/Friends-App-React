@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 
 const Add = () => {
@@ -16,6 +17,19 @@ const Add = () => {
     }
     const readValue=()=>{
         console.log(friends)
+        axios.post("https://friendsapi-re5a.onrender.com/adddata",friends).then(
+            (response)=>{
+                console.log(response.data)
+        
+        if (response.data.status=="success") {
+            alert ("Successfully added")
+            
+        } else {
+            alert ("Error!")
+            
+        } 
+    }
+    ).catch().finally()
     }
   return (
     <div>
